@@ -1,0 +1,80 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 align-self-center">
+      <h1> Lista di Addetti </h1>
+    </div>
+    <div class="col-md-6 align-self-center">
+      <div class="btn-toolbar">
+      <h1> Lista di Cantieri </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-6 ">
+
+        <br>
+        <table class="table table-striped table-hover table-bordered" id="dataTableCleaner">
+          <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nominativo</th>
+              <th scope="col">Residenza</th>
+              <th scope="col">Patente</th>
+          </tr>
+          </thead>
+          <% cleaners.each do |cleaner| %>
+              <tr>
+                  <td  class="align-baseline"> <h6> <%= cleaner.internaln %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= cleaner.name %> <%= cleaner.surname %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= cleaner.residence %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= cleaner.license %> </h6> </td>
+
+              </tr>
+          <% end %>
+      </table>
+      <span id="noMatchCleaners" style="display:none;">
+            Nessun dato è stato trovato
+      </span>
+    </div>
+
+    <div class="col-md-6 ">
+
+      <br>
+      <table class="table table-striped table-hover table-bordered" id ="dataTableSite">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Anagrafica</th>
+            <th scope="col">Locazione</th>
+            <th scope="col">Tempo</th>
+        </tr>
+        </thead>
+        <% sites.each do |site| %>
+            <tr>
+                <td  class="align-baseline"> <h6> <%= site.id %> </h6> </td>
+                <td  class="align-baseline"> <h6> <%= site.nome %> </h6> </td>
+                <td  class="align-baseline"> <h6> <%= site.location %> </h6> </td>
+                <td  class="align-baseline"> <h6> <%= site.time_required %> </h6> </td>
+
+
+
+            </tr>
+        <% end %>
+      </table>
+      <span id="noMatchSites" style="display:none;">
+            Nessun dato è stato trovato
+      </span>
+    </div>
+
+  </div>
+  
+</div>
+
+<%= javascript_include_tag 'searchCleaner', 'data-turbo-track': 'reload' %>
+
+<%= javascript_include_tag 'searchSite', 'data-turbo-track': 'reload' %>

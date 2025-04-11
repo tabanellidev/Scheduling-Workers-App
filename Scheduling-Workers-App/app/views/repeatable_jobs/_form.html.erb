@@ -1,0 +1,88 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 ">
+
+      <%= form_with model: repeatable_job do |form| %>
+
+        <div class="form-group">
+          <% invalid = repeatable_job.errors.include?(:day) %>
+
+          <%= form.label "Giorno" %><br>
+          <%= form.select :day, ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì'], class: "form-control #{'is-invalid' if invalid}" %>          
+          <% repeatable_job.errors.full_messages_for(:day).each do |message| %>
+            <div class="invalid-feedback d-block"> <%= message %> </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <% invalid = repeatable_job.errors.include?(:hour) %>
+
+          <%= form.label "Ora" %><br>
+          <%= form.time_field :hour, class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci l'ora" %>
+          <% repeatable_job.errors.full_messages_for(:hour).each do |message| %>
+            <div class="invalid-feedback d-block"> <%= message %> </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <% invalid = repeatable_job.errors.include?(:duration) %>
+
+          <%= form.label "Durata" %><br>
+          <%= form.number_field :duration, class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci l'ora" %>
+          <% repeatable_job.errors.full_messages_for(:duration).each do |message| %>
+            <div class="invalid-feedback d-block"> <%= message %> </div>
+          <% end %>
+        </div>
+
+        <div class="form-group"> 
+          <%= form.label "Mese programma" %><br>
+          <% if @index.nil? %>
+            <% @index = DateTime.now() %>
+          <% end %>
+          <% lower_bound = @index - 1.month %>
+          <% upper_bound = @index + 4.month %>
+          <% the_months = (lower_bound..upper_bound).select { |d| d.day == 1 } %>
+          <%= form.select :date, the_months.map { |d| [d.strftime('%m-%Y'), d] } %>
+
+          <% repeatable_job.errors.full_messages_for(:date).each do |message| %>
+            <div class="invalid-feedback d-block"> <%= message %> </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <% invalid = repeatable_job.errors.include?(:cleaner_id) %>
+
+          <%= form.label "Identificativo Addetto" %><br>
+          <% if not params[:cleaner].nil?%>
+            <%= form.number_field :cleaner_id, id: "searchInputCleaner", class: "form-control #{'is-invalid' if invalid}", value: @temp_id %>
+          <% elsif not repeatable_job.cleaner.nil? %>
+            <%= form.number_field :cleaner_id, id: "searchInputCleaner", class: "form-control #{'is-invalid' if invalid}", value: repeatable_job.cleaner.internaln %>
+          <% else %>
+            <%= form.number_field :cleaner_id, id: "searchInputCleaner", class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci l'addetto" %>
+          <% end %>
+
+          <% repeatable_job.errors.full_messages_for(:cleaner_id).each do |message| %>
+            <div class="invalid-feedback d-block"> <%= message %> </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <% invalid = repeatable_job.errors.include?(:site_id) %>
+
+          <%= form.label "Identificativo Cantiere" %><br>
+          <%= form.number_field :site_id, id: "searchInputSite", class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci il cantiere" %>
+          <% repeatable_job.errors.full_messages_for(:site_id).each do |message| %>
+            <div class="invalid-feedback d-block"> <%= message %> </div>
+          <% end %>
+        </div>
+        <br>
+        <div>
+          <%= form.button "Invio", type: "submit", class: "btn btn-outline-info" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

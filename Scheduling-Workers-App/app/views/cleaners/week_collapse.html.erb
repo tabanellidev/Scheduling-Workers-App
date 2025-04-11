@@ -1,0 +1,59 @@
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+    <h2> Settimana <%= @cleaner.name %> <%= @cleaner.surname %> </h2>
+    </div>
+    <div class="col-md-2 align-self-center">
+      <div class="btn-toolbar">
+        <%= button_to "-1", {action: "week"}, params:{index: @shift.to_i-1} , method: :get, class: "btn btn-outline-primary" %>
+        <%= button_to "+1", {action: "week"}, params:{index: @shift.to_i+1} , method: :get, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+    <div class="col-md-2 align-self-center">
+      <h5> Ore Totali <%= @total_hour %> </h5> 
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 ">
+        <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+              <th scope="col">Ora</th>
+              <% @listday.zip(@listweek) do |day,time| %>
+                    <th scope="col"><%= day %> <br> <%= time.strftime('%d-%m-%Y')%> </th>
+              <% end %>
+        </tr>
+
+        <% @listtimes.each do |time| %>
+        <tr> 
+            <td><%= time %></td>
+            <% @listweek.each do |day| %>
+              <% index = day.strftime('%d-%m-%Y') + " " + time %>
+              <% if @jobsdict[index].nil? %>
+                <td> / </td>
+              <% else %>
+                <td>
+                <% @jobsdict[index].each do |joblist| %>
+                    Cantiere: <%= link_to joblist[0].split('$')[1], site_path(joblist[0].split('$')[0]), method: :get%> <br>
+                    <% joblist[1].each do |job| %>
+                      <%= render partial: "jobline", :locals => {:job => job} %>
+                    <% end %>
+                <% end %>
+                </td>
+              <% end %>
+            <% end %>
+            
+        </tr>
+        <% end %>
+
+      </table>
+    </div>
+  </div>
+</div>

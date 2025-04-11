@@ -1,0 +1,8 @@
+<% if not jobs_warning == [] %>
+Attenzione, i seguenti lavori non compariranno in tabella per invalidità di minuti: <br>
+  <% jobs_warning.each do |job| %>
+  <% temp = '['+job.id.to_s+']' + " " + job.site.nome + " | " + job.cleaner.name + " " + job.cleaner.surname + " | " + job.date.strftime('%d-%m-%Y %H:%M') + " " %>
+  - <%= link_to temp, job_path(job.id), method: :get%> <br>
+  <% end  %>
+  <br>
+<% end %>

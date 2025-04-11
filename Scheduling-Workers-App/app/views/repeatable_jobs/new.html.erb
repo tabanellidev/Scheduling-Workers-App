@@ -1,0 +1,9 @@
+<% content_for :title, "Nuovo Lavoro Programmato" %>
+
+<h1>Nuovo Lavoro Programmato</h1>
+
+<%= render "form", repeatable_job: @repeatable_job %>
+
+<br>
+
+<%= render "shared/tables", cleaners: @cleaners, sites: @sites%>

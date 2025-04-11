@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">BACMS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+
+        <%= link_to "Addetti", cleaners_url, class:"nav-link" %>
+        <%= link_to "Cantieri", sites_url, class:"nav-link" %>
+        <%= link_to "Lavori", jobs_url, class:"nav-link" %>
+        <%= link_to "Programmi", repeatable_jobs_url, class:"nav-link" %>
+        <%= link_to "Settimana", jobs_week_url, class:"nav-link" %>
+
+      </div>      
+    </div>
+    
+    <% if current_user %>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete , class: "btn btn-outline-primary"%>
+    <% else %>
+      <%= button_to "Login", new_user_session_path, class: "btn btn-outline-primary" %>
+    <% end %>
+
+</nav>
+
+

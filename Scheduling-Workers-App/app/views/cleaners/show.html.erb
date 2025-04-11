@@ -1,0 +1,71 @@
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+      <h1> Profilo <%= @cleaner.name%> <%= @cleaner.surname%> </h1>
+    </div>
+    <div class="col-md-5 align-self-center">
+      <div class="btn-toolbar">
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 ">
+      <div class="card h-100">
+        <div class="card-body ">
+        <h4 class="card-title">Anagrafica</h4>
+              <%= render partial: "shared/show_cell", locals: {head: "Identificativo", body: @cleaner.internaln} %>
+              <%= render partial: "shared/show_cell", locals: {head: "Nominativo", body: @cleaner.name + " " + @cleaner.surname } %>
+              <%= render partial: "shared/show_cell", locals: {head: "CF", body: @cleaner.codfis } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Data di Nascita", body: @cleaner.birthdate.strftime("%d-%m-%Y") } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Data di Assunzione", body: @cleaner.hired.strftime("%d-%m-%Y") } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Residenza", body: @cleaner.residence } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Patente", body: @cleaner.license } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Email", body: @cleaner.email } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Telefono", body: @cleaner.phone } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Ore Contratto", body: @cleaner.hours_required } %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 ">
+      <div class="card h-100">
+        <div class="card-body">
+        <h4 class="card-title"> Opzioni </h4>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Settimana", {action: "week", id: @cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Programma", {controller: "repeatable_jobs", action: "cleaner_schedule", id: @cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Riassunto", {action: "summary", id: @cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Modifica", {action: "edit", id: @cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %> 
+            </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>

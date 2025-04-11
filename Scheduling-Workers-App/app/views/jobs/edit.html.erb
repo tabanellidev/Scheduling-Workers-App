@@ -1,0 +1,9 @@
+<% content_for :title, "Modifica Lavoro" %>
+
+<h1>Modifica Lavoro</h1>
+
+<%= render "form", job: @job %>
+
+<br>
+
+<%= render "shared/tables", cleaners: @cleaners, sites: @sites%>

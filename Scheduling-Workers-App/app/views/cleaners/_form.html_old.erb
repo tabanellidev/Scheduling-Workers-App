@@ -1,0 +1,42 @@
+<%= form_with(model: cleaner) do |form| %>
+  <% if cleaner.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(cleaner.errors.count, "error") %> prohibited this cleaner from being saved:</h2>
+
+      <ul>
+        <% cleaner.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :surname, style: "display: block" %>
+    <%= form.text_field :surname %>
+  </div>
+
+  <div>
+    <%= form.label :birthdate, style: "display: block" %>
+    <%= form.date_field :birthdate %>
+  </div>
+
+  <div>
+    <%= form.label :residence, style: "display: block" %>
+    <%= form.text_field :residence %>
+  </div>
+
+  <div>
+    <%= form.label :hired, style: "display: block" %>
+    <%= form.date_field :hired %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

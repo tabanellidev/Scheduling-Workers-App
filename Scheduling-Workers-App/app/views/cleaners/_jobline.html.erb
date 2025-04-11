@@ -1,0 +1,12 @@
+<%= link_to '['+job[0].to_s+']', job_path(job[0]), method: :get%>
+<% temp =  job[2].to_s + ' [' + job[4].to_s + ']' %>
+<%= link_to temp, cleaner_path(job[1]), method: :get%>  <%= job[3] %>h <br>
+<% if not job[5].nil? %>
+    <% if not job[5].empty? %>
+        Colleghe: <br> 
+            <% job[5].each do |col| %>
+                <% temp =  col[1].to_s + ' [' + col[3].to_s + ']' %>
+                <%= link_to '['+col[2].to_s+']', job_path(col[2]), method: :get%> <%= link_to temp, cleaner_path(col[0]), method: :get%> <br> 
+            <% end %>   
+    <% end %>
+<% end %>

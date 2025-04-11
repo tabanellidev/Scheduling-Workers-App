@@ -1,0 +1,40 @@
+<section class="vh-100">
+  <div class="container py-5 ">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+              <h3 class="mb-5">Login</h3>
+
+               <div class="form-outline mb-4">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-control-lg" %>
+              </div>
+
+              <div class="form-outline mb-4">
+                <%= f.label :password %><br />
+                <%= f.password_field :password, autocomplete: "current-password", class:"form-control form-control-lg" %>
+              </div>
+
+              <% if devise_mapping.rememberable? %>
+                <div class="form-check d-flex justify-content-start mb-4">
+                  <%= f.check_box :remember_me, class: "form-check-input" %>
+                  <%= f.label :remember_me, class:"form-check-label" %>
+                </div>
+              <% end %>
+
+              <div class="actions">
+                <%= f.submit "Log in", data: {turbo: false}, class: "btn btn-outline-primary"  %>
+              </div>
+            
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

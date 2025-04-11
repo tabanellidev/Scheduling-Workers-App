@@ -1,0 +1,74 @@
+
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-13 align-self-center">
+      <h1> Informazioni Lavoro </h1>
+    </div>
+
+  </div>
+</div>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 ">
+      <div class="card h-100">
+        <div class="card-body ">
+        <h4 class="card-title">Dettagli</h4>
+              <%= render partial: "shared/show_cell", locals: {head: "Identificativo", body: @job.id } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Data", body: @job.date.strftime("%d-%m-%y %H:%M") } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Durata", body: @job.duration } %>
+              <% temp_2 = link_to @job.site.nome , site_path(@job.site.id), method: :get %>
+              <%= render partial: "shared/show_cell", locals: {head: "Cantiere", body: temp_2} %>
+              <%= render partial: "shared/show_cell", locals: {head: "Note", body: @job.notes} %>
+              <%= render partial: "shared/show_cell", locals: {head: "Creato", body: @job.created_at.strftime("%d-%m-%y %H:%M") } %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 ">
+      <div class="card h-100">
+        <div class="card-body">
+        <h4 class="card-title">Opzioni</h4>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Modifica", {action: "edit", id: @job.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+        <%= button_to "Elimina", {action: "destroy", id: @job.id}, method: :delete, id: 'delete-link'  , class: "btn btn-outline-primary", style: "width:100%" %>            </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-13 ">
+      <div class="card h-100">
+        <div class="card-body">
+        <h4 class="card-title">Anagrafica Addetto</h4>
+              <%= render partial: "shared/show_cell", locals: {head: "Identificativo", body: @job.cleaner.internaln} %>
+              <% 
+                nominativo = @job.cleaner.name.to_s + " " + @job.cleaner.surname.to_s
+                temp_1 = link_to nominativo , cleaner_path(@job.cleaner.id), method: :get %> 
+              <%= render partial: "shared/show_cell", locals: {head: "Addetto", body: temp_1} %>
+              <%= render partial: "shared/show_cell", locals: {head: "CF", body: @job.cleaner.codfis } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Residenza", body: @job.cleaner.residence } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Patente", body: @job.cleaner.license } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'confirmDel', 'data-turbo-track': 'reload' %>

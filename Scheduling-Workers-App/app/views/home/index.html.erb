@@ -1,0 +1,57 @@
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+    <h2> Homepage </h2>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 ">
+
+    <% if not @warning_list == []%>
+
+        <br>
+        <h4> I seguenti lavori presentano una sovrapposizione </h4>
+        <br>
+        <% @warning_list.each do |jobs| %>
+        <table class="table table table-hover table-bordered">
+          <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Data</th>
+              <th scope="col">Cantiere</th>
+              <th scope="col">Durata</th>
+              <th scope="col">Addetto</th>
+              <th scope="col">Info</th>
+          </tr>
+          </thead>
+            <td> <%= jobs[0].id    %> </td>
+            <td> <%= jobs[0].date  %> </td>
+            <td> <%= jobs[0].site.nome  %> </td>
+            <td> <%= jobs[0].duration  %> </td>
+            <td> <%= jobs[0].cleaner.name %> <%= jobs[0].cleaner.surname  %> </td>
+            <td> <%= button_to "Info", {controller: :jobs, action: "show", id: jobs[0].id}, method: :get, class: "btn btn-outline-primary" %> </td>
+            <tr>
+            <td> <%= jobs[1].id  %> </td>
+            <td><%= jobs[1].date  %> </td>
+            <td> <%= jobs[1].site.nome  %> </td>
+            <td> <%= jobs[1].duration  %></td>
+            <td> <%= jobs[0].cleaner.name %> <%= jobs[0].cleaner.surname  %> </td>
+            <td> <%= button_to "Info", {controller: :jobs, action: "show", id: jobs[1].id}, method: :get, class: "btn btn-outline-primary" %> </td>
+
+            </tr>
+        </table>
+        <% end %>
+
+    <%end%>
+
+    </div>
+  </div>
+</div>

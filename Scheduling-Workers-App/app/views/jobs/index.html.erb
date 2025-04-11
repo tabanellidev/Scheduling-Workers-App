@@ -1,0 +1,70 @@
+
+<% content_for :title, "Lavori" %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+      <h1> Lista di Lavori </h1>
+    </div>
+    <div class="col-md-5 align-self-center">
+      <div class="btn-toolbar">
+        <td> <%= button_to "Crea Lavoro", new_job_path, method: :get, class: "btn btn-outline-primary "   %> </td>
+        <td> <%= button_to "Settimana", {action: "week"}, method: :get, class: "btn btn-outline-primary" %> </td>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 ">
+
+        <input type="text" class="form-control"  type="text" id="searchInputJob" placeholder="Ricerca...">
+
+        <br>
+
+        <table class="table table-striped table-hover table-bordered" id="dataTableJob">
+          <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Data</th>
+              <th scope="col">Addetto</th>
+              <th scope="col">Cantiere</th>
+              <th scope="col">Durata</th>
+              <th scope="col">Note</th>
+              <th scope="col">Info</th>
+          </tr>
+          </thead>
+          <% @jobs.each do |job| %>
+              <tr>
+                  <td  class="align-baseline"> <h6> <%= job.id %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.date.strftime("%d-%m-%y %H:%M") %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.cleaner.name %> <%= job.cleaner.surname %></h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.site.nome %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.duration %> </h6> </td>
+                  <td  class="align-baseline"> <h6> 
+                    <% if job.notes.nil? %>
+                      No
+                    <% else %>
+                      Si
+                    <% end %>
+                    
+                  </h6> </td>
+
+                  <td> <%= button_to "Info", {action: "show", id: job.id}, method: :get, class: "btn btn-outline-primary" %> </td>
+              </tr>
+          <% end %>
+      </table>
+      <span id="noMatch" style="display:none;">
+            Nessun dato è stato trovato
+      </span>
+    </div>
+    
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'searchJob', 'data-turbo-track': 'reload' %>

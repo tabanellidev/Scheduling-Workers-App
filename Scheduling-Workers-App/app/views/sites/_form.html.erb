@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 ">
+
+      <%= form_with model: site do |form| %>
+
+      <div class="form-group">
+        <% invalid = site.errors.include?(:nome) %>
+
+        <%= form.label "Nominativo" %><br>
+        <%= form.text_field :nome, class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci il nominativo" %>
+        <% site.errors.full_messages_for(:nome).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+
+
+      <div class="form-group">
+        <% invalid = site.errors.include?(:owner) %>
+
+        <%= form.label "Referente" %><br>
+        <%= form.text_field :owner, class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci il proprietario" %>
+        <% site.errors.full_messages_for(:owner).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <% invalid = site.errors.include?(:location) %>
+
+        <%= form.label "Città" %><br>
+        <%= form.text_field :location, class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci la locazione" %>
+        <% site.errors.full_messages_for(:location).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <% invalid = site.errors.include?(:requests) %>
+
+        <%= form.label "Richieste" %><br>
+        <%= form.text_area :requests, class: "form-control #{'is-invalid' if invalid}", placeholder: "Inserisci le richieste" %>
+        <% site.errors.full_messages_for(:requests).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+        
+      <div class="form-group">
+        <% invalid = site.errors.include?(:time_required) %>
+
+        <%= form.label "Tempo richiesto" %><br>
+        <%= form.number_field :time_required, step: 0.08, class: "form-control #{'is-invalid' if invalid}" %>
+        <% site.errors.full_messages_for(:time_required).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <% invalid = site.errors.include?(:phone) %>
+
+        <%= form.label "Telefono" %><br>
+        <%= form.text_field :phone, class: "form-control #{'is-invalid' if invalid}" %>
+        <% site.errors.full_messages_for(:phone).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <% invalid = site.errors.include?(:email) %>
+
+        <%= form.label "Email" %><br>
+        <%= form.text_field :email, class: "form-control #{'is-invalid' if invalid}" %>
+        <% site.errors.full_messages_for(:email).each do |message| %>
+          <div class="invalid-feedback d-block"> <%= message %> </div>
+        <% end %>
+      </div>
+
+      <br>
+      <div>
+        <%= form.button "Invio", type: "submit", class: "btn btn-outline-info" %>
+      </div>
+
+<% end %>

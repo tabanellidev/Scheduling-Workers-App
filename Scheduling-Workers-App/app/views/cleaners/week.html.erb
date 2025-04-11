@@ -1,0 +1,71 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 align-self-center">
+      <h1> <%= @cleaner.name %> <%= @cleaner.surname %></h1>     
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+      <h2> Ore Settimana <%= @total_hour %> / <%= @cleaner.hours_required.to_f %>  </h2>
+    </div>
+    <div class="col-md-5 align-self-center">
+      <div class="btn-toolbar">
+        <%= button_to "Settimana Prima", {action: "week"}, params:{index: @shift.to_i-1} , method: :get, class: "btn btn-outline-primary" %>
+        <%= button_to "Settimana Dopo", {action: "week"}, params:{index: @shift.to_i+1} , method: :get, class: "btn btn-outline-primary" %>
+
+        <%= button_to "Riassunto", {action: "summary", id: @cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+<%= render partial: "shared/warnings/warnings", :locals => {jobs_minutes: @jobs_minutes, jobs_duration: @jobs_duration} %>
+
+<%= render partial: "shared/warnings/hrs_warning", :locals => {total: @cleaner.hours_required.to_f, hours: @total_hour} %>
+
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-13 ">
+        <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+              <th scope="col">Ora</th>
+              <% @listday.zip(@listweek) do |day,time| %>
+                    <th scope="col"><%= day %> <br> <%= time.strftime('%d-%m-%Y')%> </th>
+              <% end %>
+        </tr>
+
+        <% @listtimes.each do |time| %>
+        <tr> 
+            <td><%= time %></td>
+            <% @listweek.each do |day| %>
+              <% index = day.strftime('%d-%m-%Y') + " " + time %>
+              <% if @jobsdict[index].nil? %>
+                <td> <%= link_to "+", new_job_path(date_set: index, cleaner: @cleaner.id), method: :get %> </td>
+              <% else %>
+                <td>
+                <% @jobsdict[index].each do |joblist| %>
+                    <%= link_to joblist[0].split('$')[1], site_path(joblist[0].split('$')[0]), method: :get%> <br>
+                    <% joblist[1].each do |job| %>
+                      <%= render partial: "jobline", :locals => {:job => job} %>
+                    <% end %>
+                <% end %>
+                <%= link_to "+", new_job_path(date_set: index), method: :get %>
+                </td>
+              <% end %>
+            <% end %>
+            
+        </tr>
+        <% end %>
+
+      </table>
+    </div>
+  </div>
+</div>

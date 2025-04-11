@@ -1,0 +1,4 @@
+<%= link_to '['+job[0].to_s+']', job_path(job[0]), method: :get%>
+<% temp =  job[2].to_s + ' [' + job[4].to_s + ']' %>
+<%= link_to temp, cleaner_path(job[1]), method: :get%> <%= job[3] %>h <br>
+

@@ -1,0 +1,76 @@
+
+<% content_for :title, "Repeatable jobs" %>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 align-self-center">
+      <h1> <%= @cleaner.name %> <%= @cleaner.surname %></h1> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 align-self-center">
+      <h2> Programma <%= @month %>  </h2>
+    </div>
+    <div class="col-md-7 align-self-center">
+      <div class="btn-toolbar">
+        <%= button_to "Settimana Prima", {action: "cleaner_schedule"}, params:{index: @shift.to_i-1, id: @cleaner.id} , method: :get, class: "btn btn-outline-primary" %>
+        <%= button_to "Settimana Dopo", {action: "cleaner_schedule"}, params:{index: @shift.to_i+1, id: @cleaner.id} , method: :get, class: "btn btn-outline-primary" %>
+
+        <%= link_to "Crea Lavoro Programmato", new_repeatable_job_path(cleaner: @cleaner.id, index: @shift), method: :get, class: "btn btn-outline-primary "   %>
+
+        <%= form_with url: "/repeatable_jobs/copyall", method: :post do |form| %>
+        <%= form.submit "Copia Tutti",  class: "btn btn-outline-primary", id: 'copy-link'  %>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 ">
+
+        <br>
+
+        <table class="table table-striped table-hover table-bordered" id="dataTableJob">
+          <thead>
+          <tr>
+              <th> <input type="checkbox" onchange=checkAll(this) class="auto"/> </th> 
+              <th scope="col">#</th>
+              <th scope="col">Cantiere</th>
+              <th scope="col">Mese</th>
+              <th scope="col">Giorno</th>
+              <th scope="col">Ora</th>
+              <th scope="col">Durata</th>
+          </tr>
+          </thead>
+          <% 
+            name = "checkbox" 
+          %>
+          <%= form.hidden_field :cleaner_id, value: @cleaner.id %>
+          <% @repeatable_jobs.each do |job| %>
+              <tr>  
+                  <% temp = name + "_" + job.id.to_s %>
+                  <td> <%= form.check_box temp,  class: "checkbox", id: "myCheck" %> </td>
+                  <td  class="align-baseline"> <h6> <%= job.id %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.site.nome %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.date.strftime("%m-%Y") %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.day %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.hour %> </h6> </td>
+                  <td  class="align-baseline"> <h6> <%= job.duration %> </h6> </td>
+              </tr>
+          <% end %>
+
+      </table>
+
+      <% end %>
+
+    </div>
+    
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<%= javascript_include_tag 'confirmCop', 'data-turbo-track': 'reload' %>
+<%= javascript_include_tag 'toggleAll', 'data-turbo-track': 'reload' %>

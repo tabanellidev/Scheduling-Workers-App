@@ -1,0 +1,18 @@
+<td style="width:33%"> 
+    <table class="table table-bordered">
+        <td> <%= day %> </td> 
+        <% jobs_list.each do |job, col| %>
+        <tr style="border-bottom: none;"> 
+        <td> <%= job.date.strftime("%H:%M") %> <%= job.site.nome %>  </td> 
+        </tr>
+        <tr style="border-top: none;"> 
+            <td style="text-align: right;"> 
+
+            <% col.each do |job| %>
+                <%= job.cleaner.internaln %> | 
+            <% end %>
+            Durata: <%= job.duration %>  </td> 
+        </tr>
+        <% end %>
+    </table>
+</td>

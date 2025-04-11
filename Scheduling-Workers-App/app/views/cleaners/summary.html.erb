@@ -1,0 +1,55 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 align-self-center">
+    <h1> Riassunto <%= @cleaner.name %> <%= @cleaner.surname %> </h1>
+    </div>
+    <div class="col-md-2 align-self-center">
+      <h5> Ore Totali <%= @total_hour %> / <%= @cleaner.hours_required %> </h5> 
+    </div>
+    <div class="col-md-3 align-self-center">
+      <div class="btn-toolbar">
+        <%= button_to "Settimana Prima", {action: "summary"}, params:{index: @shift.to_i-1} , method: :get, class: "btn btn-outline-primary" %>
+        <%= button_to "Settimana Dopo", {action: "summary"}, params:{index: @shift.to_i+1} , method: :get, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+    <div class="col-md-2 align-self-center">
+        <%= button_to "Settimana", {action: "week", id: @cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-13 ">
+        <table class="table table-hover table-borderless" >
+        <tbody>
+        <tr>
+
+        <%= render "summary_cell", day: "Lunedì", jobs_list: @jobs_per_day["Mon"]%>
+        <%= render "summary_cell", day: "Martedì", jobs_list: @jobs_per_day["Tue"]%>
+        <%= render "summary_cell", day: "Mercoledì", jobs_list: @jobs_per_day["Wed"]%>
+
+        <tr>
+        </tr>
+
+        <%= render "summary_cell", day: "Giovedì", jobs_list: @jobs_per_day["Thu"]%>
+        <%= render "summary_cell", day: "Venerdì", jobs_list: @jobs_per_day["Fri"]%>
+        <%= render "summary_cell", day: "Sabato", jobs_list: @jobs_per_day["Sat"]%>
+
+         
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+  
+
+  
+
+

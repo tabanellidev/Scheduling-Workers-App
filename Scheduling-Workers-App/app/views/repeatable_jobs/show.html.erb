@@ -1,0 +1,102 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+      <h1> Informazioni Lavoro Programmato</h1>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 ">
+      <div class="card h-100">
+        <div class="card-body ">
+        <h4 class="card-title">Dettagli</h4>
+              <%= render partial: "shared/show_cell", locals: {head: "Identificativo", body: @repeatable_job.id } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Mese", body: @repeatable_job.date.strftime("%m-%Y") } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Giorno", body: @repeatable_job.day } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Ora", body: @repeatable_job.hour } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Durata", body: @repeatable_job.duration } %>
+              <% temp_2 = link_to @repeatable_job.site.nome , site_path(@repeatable_job.site.id), method: :get %>
+              <%= render partial: "shared/show_cell", locals: {head: "Cantiere", body: temp_2} %>
+              <%= render partial: "shared/show_cell", locals: {head: "Creato", body: @repeatable_job.created_at.strftime("%d-%m-%y %H:%M") } %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 ">
+      <div class="card h-100">
+        <div class="card-body">
+        <h4 class="card-title">Anagrafica Addetto</h4>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Programma Addetto", {controller: "repeatable_jobs", action: "cleaner_schedule", id: @repeatable_job.cleaner.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Programma Cantiere", {controller: "repeatable_jobs", action: "site_schedule", id: @repeatable_job.site.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Copia", {action: "copy", id: @repeatable_job.id}, method: :post, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Modifica", {action: "edit", id: @repeatable_job.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Elimina", {action: "destroy", id: @repeatable_job.id}, method: :get, id: 'delete-link', class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br> 
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-13 ">
+      <div class="card h-100">
+        <div class="card-body">
+        <h4 class="card-title">Anagrafica Addetto</h4>
+              <%= render partial: "shared/show_cell", locals: {head: "Identificativo", body: @repeatable_job.cleaner.internaln} %>
+              <% 
+                nominativo = @repeatable_job.cleaner.name.to_s + " " + @repeatable_job.cleaner.surname.to_s
+                temp_1 = link_to nominativo , cleaner_path(@repeatable_job.cleaner.id), method: :get %> 
+              <%= render partial: "shared/show_cell", locals: {head: "Addetto", body: temp_1} %>
+              <%= render partial: "shared/show_cell", locals: {head: "CF", body: @repeatable_job.cleaner.codfis } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Residenza", body: @repeatable_job.cleaner.residence } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Patente", body: @repeatable_job.cleaner.license } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if not params[:notice].nil? %>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 align-self-center">
+      <h3> Il lavoro è già stato inserito </h3>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<%= javascript_include_tag 'confirmDel', 'data-turbo-track': 'reload' %>

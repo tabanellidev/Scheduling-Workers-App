@@ -1,0 +1,19 @@
+<% if not jobs_warning == [] %>
+Attenzione, i seguenti lavori violano un vincolo di durata: <br>
+  <% jobs_warning.each do |job| %>
+  
+  <% temp0 = '['+job[0].id.to_s+']' + " " + 
+              job[0].site.nome + " | " + 
+              job[0].cleaner.name + " " + 
+              job[0].cleaner.surname + " | " + 
+              job[0].date.strftime('%d-%m-%Y %H:%M') + " " %>
+  <% temp1 = '['+job[1].id.to_s+']' + " " + 
+              job[1].site.nome + " | " + 
+              job[1].cleaner.name + " " + 
+              job[1].cleaner.surname + " | " + 
+              job[1].date.strftime('%d-%m-%Y %H:%M') + " " %>
+  - <%= link_to temp0, job_path(job[0].id), method: :get%> | 
+    <%= link_to temp1, job_path(job[1].id), method: :get%> <br>
+  <% end  %>
+  <br>
+<% end %>

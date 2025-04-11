@@ -1,0 +1,57 @@
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-13 align-self-center">
+      <h1> Profilo Cantiere </h1>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 ">
+      <div class="card h-100">
+        <div class="card-body ">
+        <h4 class="card-title">Anagrafica</h4>
+              <%= render partial: "shared/show_cell", locals: {head: "Identificativo", body: @site.id } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Nominativo", body: @site.nome } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Referente", body: @site.owner } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Città", body: @site.location } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Richieste", body: @site.requests } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Tempo Richiesto", body: @site.time_required } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Email", body: @site.email } %>
+              <%= render partial: "shared/show_cell", locals: {head: "Telefono", body: @site.phone } %>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 ">
+      <div class="card h-100">
+        <div class="card-body">
+        <h4 class="card-title"> Opzioni </h4>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Programma", {controller: "repeatable_jobs", action: "site_schedule", id: @site.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= link_to "Crea Lavoro", new_job_path(site: @site.id), method: :get, class: "btn btn-outline-primary", style: "width:100%" %>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-13">
+            <%= button_to "Modifica", {action: "edit", id: @site.id}, method: :get, class: "btn btn-outline-primary", style: "width:100%" %> 
+            </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
